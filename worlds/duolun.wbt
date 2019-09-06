@@ -1,0 +1,352 @@
+#VRML_SIM R2019a utf8
+WorldInfo {
+  basicTimeStep 10
+}
+Viewpoint {
+  orientation 0.3740337153621198 0.8649131952305898 0.33469978262380184 4.279930950804898
+  position -1.2559859769614696 1.451099317883286 -0.5487695690543544
+}
+TexturedBackground {
+}
+RectangleArena {
+  floorSize 50 50
+}
+TexturedBackgroundLight {
+}
+Robot {
+  translation 0 0.11999999999999998 0
+  children [
+    DEF body_shape Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.3333333333333333 0 1
+        }
+      }
+      geometry Box {
+        size 0.5 0.05 0.5
+      }
+    }
+    DEF lf_dir_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.25 0 -0.25
+      }
+      device [
+        RotationalMotor {
+          name "lf_dir_motor"
+          acceleration 20
+          controlPID 2 0 0.5
+          maxVelocity 20
+          maxTorque 20
+        }
+        PositionSensor {
+          name "lf_dir_pos_sensor"
+        }
+      ]
+      endPoint DEF lf_dir_solid Solid {
+        translation 0.25 0 -0.25
+        children [
+          DEF lf_dir_shape Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 1 0 0
+              }
+            }
+            geometry Cylinder {
+              height 0.04
+              radius 0.030000000000000002
+            }
+          }
+          DEF lf_run_hinge HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.07 0
+            }
+            device [
+              RotationalMotor {
+                name "lf_run_motor"
+                acceleration 25
+                controlPID 0.5 0 0.01
+                maxVelocity 200
+                maxTorque 12
+              }
+              PositionSensor {
+                name "lf_run_pos_sensor"
+              }
+            ]
+            endPoint DEF lf_run_solid Solid {
+              translation 0 -0.07 0
+              rotation 1 0 0 1.5707963000000003
+              children [
+                DEF lf_run_shape Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0.6666666666666666 0
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.04
+                    radius 0.045
+                  }
+                }
+              ]
+              name "lf_run_solid"
+              boundingObject USE lf_run_shape
+              physics Physics {
+                mass 0.1
+              }
+            }
+          }
+        ]
+        name "lf_dir_solid"
+        boundingObject USE lf_dir_shape
+        physics Physics {
+          mass 0.1
+        }
+      }
+    }
+    DEF lb_dir_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor -0.25 0 -0.25
+      }
+      device [
+        RotationalMotor {
+          name "lb_dir_motor"
+          acceleration 20
+          controlPID 2 0 0.5
+          maxVelocity 20
+          maxTorque 20
+        }
+        PositionSensor {
+          name "lb_dir_pos_sensor"
+        }
+      ]
+      endPoint DEF lb_dir_solid Solid {
+        translation -0.25 0 -0.25
+        children [
+          DEF lb_dir_shape Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 1 0 0
+              }
+            }
+            geometry Cylinder {
+              height 0.04
+              radius 0.030000000000000002
+            }
+          }
+          DEF lb_run_hinge HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.07 0
+            }
+            device [
+              RotationalMotor {
+                name "lb_run_motor"
+                acceleration 25
+                controlPID 0.5 0 0.01
+                maxVelocity 200
+                maxTorque 12
+              }
+              DEF lb_run_pos_sencor PositionSensor {
+                name "lb_run_pos_sensor"
+              }
+            ]
+            endPoint DEF lf_run_solid Solid {
+              translation 0 -0.07 0
+              rotation 1 0 0 1.5707963000000003
+              children [
+                DEF lb_run_shape Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0.6666666666666666 0
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.04
+                    radius 0.045
+                  }
+                }
+              ]
+              name "lb_run_solid"
+              boundingObject USE lb_run_shape
+              physics Physics {
+                mass 0.1
+              }
+            }
+          }
+        ]
+        name "lb_dir_solid"
+        boundingObject USE lb_dir_shape
+        physics Physics {
+          mass 0.1
+        }
+      }
+    }
+    DEF rf_dir_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.25 0 0.25
+      }
+      device [
+        RotationalMotor {
+          name "rf_dir_motor"
+          acceleration 20
+          controlPID 2 0 0.5
+          maxVelocity 20
+          maxTorque 20
+        }
+        PositionSensor {
+          name "rf_dir_pos_sensor"
+        }
+      ]
+      endPoint DEF rf_dir_solid Solid {
+        translation 0.25 0 0.25
+        children [
+          DEF rf_dir_shape Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 1 0 0
+              }
+            }
+            geometry Cylinder {
+              height 0.04
+              radius 0.03
+            }
+          }
+          DEF rf_run_joint HingeJoint {
+            jointParameters DEF rf_solid_joint HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.07 0
+            }
+            device [
+              DEF rf_run_pos_sensor PositionSensor {
+                name "rf_run_pos_sensor"
+              }
+              DEF rf_run_motor RotationalMotor {
+                name "rf_run_motor"
+                acceleration 25
+                controlPID 0.5 0 0.01
+                maxVelocity 200
+                maxTorque 12
+              }
+            ]
+            endPoint DEF rf_run_solid Solid {
+              translation 0 -0.06999999999999997 0
+              rotation 1 0 0 1.5708
+              children [
+                DEF rf_run_shape Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 1 0
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.04
+                    radius 0.05
+                  }
+                }
+              ]
+              name "rf_run_solid"
+              boundingObject USE rf_run_shape
+              physics Physics {
+                mass 0.1
+              }
+            }
+          }
+        ]
+        name "rf_dir_solid"
+        boundingObject USE rf_dir_shape
+        physics Physics {
+          mass 0.1
+        }
+      }
+    }
+    DEF rb_dir_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor -0.25 0 0.25
+      }
+      device [
+        RotationalMotor {
+          name "rb_dir_motor"
+          acceleration 20
+          controlPID 2 0 0.5
+          maxVelocity 20
+          maxTorque 20
+        }
+        PositionSensor {
+          name "rb_dir_pos_sensor"
+        }
+      ]
+      endPoint DEF rb_dir_solid Solid {
+        translation -0.25 0 0.25
+        children [
+          DEF rb_dir_shape Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 1 0 0
+              }
+            }
+            geometry Cylinder {
+              height 0.04
+              radius 0.03
+            }
+          }
+          DEF rb_run_joint HingeJoint {
+            jointParameters DEF rf_solid_joint HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.07 0
+            }
+            device [
+              PositionSensor {
+                name "rb_run_pos_sensor"
+              }
+              RotationalMotor {
+                name "rb_run_motor"
+                acceleration 25
+                controlPID 0.5 0 0.01
+                maxVelocity 200
+                maxTorque 12
+              }
+            ]
+            endPoint DEF rb_run_solid Solid {
+              translation 0 -0.07 0
+              rotation 1 0 0 1.5708
+              children [
+                DEF rb_run_shape Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0.6666666666666666 0
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.04
+                    radius 0.05
+                  }
+                }
+              ]
+              name "rb_run_solid"
+              boundingObject USE rb_run_shape
+              physics Physics {
+                mass 0.1
+              }
+            }
+          }
+        ]
+        name "rb_dir_solid"
+        boundingObject USE rb_dir_shape
+        physics Physics {
+          mass 0.1
+        }
+      }
+    }
+  ]
+  name "duolun"
+  boundingObject USE body_shape
+  physics Physics {
+    mass 3
+  }
+  controller "duolun"
+}
